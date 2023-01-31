@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver import ActionChains
 from time import sleep
 
 driver_path = "~/chromedriver"
@@ -8,6 +9,7 @@ username = ""
 password = ""
 
 driver = webdriver.Chrome(executable_path=driver_path)
+action = ActionChains(driver)
 
 login_page = "https://www.instagram.com/"
 driver.get(login_page)
@@ -23,17 +25,19 @@ sleep(3)
 
 victim_link = "https://www.instagram.com/georgeson/"
 driver.get(victim_link)
-sleep(50)
+sleep(3)
 
-victim_followers = driver.find_element(
-    By.XPATH, '//*[@id="mount_0_0_qA"]/div/div/div/div[1]/div/div/div/div[1]/div[1]/div[2]/section/main/div/header/section/ul/li[2]/a/div/span/span')
+posts = driver.find_elements(
+    By.CSS_SELECTOR, '._aang > ._aabd > a')
 
-victim_followers.click()
-sleep(1)
-
-followers_div = driver.find_element(
-    By.XPATH, '//*[@id="mount_0_0_qA"]/div/div/div/div[2]/div/div/div[1]/div/div[2]/div/div/div/div/div[2]/div/div/div[2]/div[1]/div')
-followers = followers_div.find_elements(By.CSS_SELECTOR, "button")
-
-for follower in followers:
-    follower.click()
+print(posts)
+for post in posts:
+    post.click()
+    print("Clicked on post")
+    sleep(2)
+    post_content = driver.find_element(
+        By.XPATH, '//*[@id="mount_0_0_pd"]/div/div/div/div[2]/div/div/div[1]/div/div[3]/div/div/div/div/div[2]/div/article/div/div[2]/div/div/div[2]/section[1]/span[1]/button')
+    action.double_click(post_content)
+    sleep(0.5)
+    action.send_keys(Keys.ESCAPE)
+    sleep(0.5)
