@@ -5,9 +5,11 @@ from selenium.webdriver import ActionChains
 from time import sleep
 
 driver_path = "~/chromedriver"
+# Our account initialization
 username = ""
 password = ""
 
+# Initialize drivers required for selenium to work
 driver = webdriver.Chrome(executable_path=driver_path)
 action = ActionChains(driver)
 
@@ -15,6 +17,7 @@ login_page = "https://www.instagram.com/"
 driver.get(login_page)
 sleep(2)
 
+# Logging in to instagram
 input_username = driver.find_element(By.NAME, "username")
 input_password = driver.find_element(By.NAME, "password")
 
@@ -33,6 +36,7 @@ posts = driver.find_elements(
     By.CSS_SELECTOR, 'article div div div div a')
 
 def like_posts():
+    # For each link, go to the page and press the like button
     for link in post_links:
         driver.get(link)
         sleep(3)
