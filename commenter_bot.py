@@ -29,9 +29,11 @@ post_link = ""
 driver.get(post_link)
 sleep(3)
 
-num_of_comments = 20
-# comment_field = driver.find_element(
-#     By.XPATH, '//*[@id="mount_0_0_HQ"]/div/div/div/div[1]/div/div/div/div[1]/div[1]/div[2]/section/main/div[1]/div[1]/article/div/div[2]/div/div[2]/section[3]/div/form/div/textarea')
-# comment_field.send_keys("omgomgomg")
+num_of_comments = 0
 
-# sleep(30)
+while(num_of_comments < 20):
+    try:
+        driver.find_element(By.XPATH, '').send_keys("", Keys.ENTER)
+        num_of_comments += 1
+    except:
+        pass
