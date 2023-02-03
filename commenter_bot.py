@@ -11,6 +11,7 @@ password = ""
 # Initialize drivers required for selenium to work
 driver = webdriver.Chrome(executable_path=driver_path)
 
+# Logging in to IG
 login_page = "https://www.instagram.com/"
 driver.get(login_page)
 sleep(2)
@@ -32,7 +33,12 @@ sleep(3)
 num_of_comments = 0
 
 while(num_of_comments < 20):
+
+    # We have to put this inside of a try and except because for some reason,
+    # the comment field doesn't always get picked up by the bot. So we keep looping
+    # past those failed attempts.
     try:
+        # Provide the reference to the textarea and whatever you would like to comment.
         driver.find_element(By.XPATH, '').send_keys("", Keys.ENTER)
         num_of_comments += 1
     except:
